@@ -1,0 +1,33 @@
+# FunctionSpace Trading SDK
+
+> TypeScript SDK for embedding prediction market trading widgets into web applications. Three packages: @functionspace/core (pure TS) -> @functionspace/react (hooks, provider, theme) -> @functionspace/ui (pre-built widgets).
+
+These packages are not yet published to npm. Clone the repo and use workspace linking. The `npm install` commands in the reference docs are forward-looking and will work once packages are published.
+
+## Embed Pre-Built Widgets
+
+- [UI Package Reference](https://docs.functionspace.dev/ui.txt): Widget catalog (ConsensusChart, TradePanel, PositionTable, MarketStats, MarketCharts, BinaryPanel, AuthWidget, PasswordlessAuthWidget), theming with 4 presets and 30-token system, composition patterns. Requires all 3 packages. Repo path: `packages/docs/static/ui.txt`
+- [Starter Kits](https://docs.functionspace.dev/docs/ui/starter-kits): 6 pre-built layouts (Basic, Binary, Custom Shape, Distribution, Advanced, Multi-Market) with live demos and source code at `demo-app/src/App_*.tsx`
+
+## Build Custom UI with React Hooks
+
+- [React Package Reference](https://docs.functionspace.dev/react.txt): FunctionSpaceProvider setup, data hooks (useMarket, useConsensus, usePositions, useMarketHistory, useTradeHistory), mutation hooks (useBuy, useSell), preview hooks (usePreviewPayout, usePreviewSell), state hooks (useAuth, useCustomShape, useBucketDistribution, useDistributionState), belief construction, trade execution. Requires @functionspace/core + @functionspace/react. Repo path: `packages/docs/static/react.txt`
+
+## Use Core Only (No React)
+
+- [Core Package Reference](https://docs.functionspace.dev/core.txt): FSClient setup, API key and passwordless authentication, market queries, belief construction with 4 shape generators (Gaussian, range, dip, custom), trade execution (buy/sell), preview functions, pure math utilities. Works in Node.js, server-side, or any non-React framework. Repo path: `packages/docs/static/core.txt`
+
+## Authentication
+
+- [Core Package Reference](https://docs.functionspace.dev/core.txt): API key auth, passwordless email/SMS auth, JWT token handling. Start here for any auth questions
+- [UI Package Reference](https://docs.functionspace.dev/ui.txt): Drop-in AuthWidget and PasswordlessAuthWidget components for login flows
+
+## Theming
+
+- [UI Package Reference](https://docs.functionspace.dev/ui.txt): 4 built-in presets (fs-dark, fs-light, native-dark, native-light), custom themes with 9 required tokens (21 auto-derived), CSS variable system
+- [React Package Reference](https://docs.functionspace.dev/react.txt): FunctionSpaceProvider theme prop configuration, chart color resolution
+
+## Optional
+
+- [Full Integration Guide](https://docs.functionspace.dev/llms.txt): Complete ~190KB guide covering all 3 packages, all integration modes, full type reference, and constraint rules. Use only if the focused guides above do not answer your question. Repo path: `packages/docs/static/llms.txt`
+- [Live Documentation Site](https://docs.functionspace.dev): Interactive docs with live widget demos, API reference, and tutorials

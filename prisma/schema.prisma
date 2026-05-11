@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  directUrl      = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Team {
+  id         String           @id @default(cuid())
+  name       String           @unique
+  blurb      String?
+  inviteCode String           @unique
+  sigilId    String           @default("eye")
+  tag        String?
+  createdAt  DateTime         @default(now())
+  members    TeamMembership[]
+  tradeTags  TradeTag[]
+}
+
+model TeamMembership {
+  teamId   String
+  username String
+  joinedAt DateTime @default(now())
+  role     String   @default("member")
+  team     Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@id([teamId, username])
+  @@index([username])
+}
+
+model TradeTag {
+  positionId String   @id
+  teamId     String
+  marketId   Int
+  username   String
+  collateral Float
+  rationale  String?
+  createdAt  DateTime @default(now())
+  team       Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([teamId, marketId])
+  @@index([username])
+  @@index([teamId, createdAt])
+}

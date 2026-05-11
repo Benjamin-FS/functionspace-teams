@@ -1,0 +1,266 @@
+// ── Market Types ──
+
+export interface MarketConfig {
+  numBuckets: number;
+  lowerBound: number;
+  upperBound: number;
+  /** @deprecated Use numBuckets. Will be removed in next major. */
+  K: number;
+  /** @deprecated Use lowerBound. Will be removed in next major. */
+  L: number;
+  /** @deprecated Use upperBound. Will be removed in next major. */
+  H: number;
+  P0: number;
+  mu: number;
+  epsAlpha: number;
+  tau: number;
+  gamma: number;
+  lambdaS: number;
+  lambdaD: number;
+}
+
+export interface MarketState {
+  alpha: number[];
+  consensus: number[];
+  totalMass: number;
+  poolBalance: number;
+  participantCount: number;
+  totalVolume: number;
+  positionsOpen: number;
+  config: MarketConfig;
+  title: string;
+  xAxisUnits: string;
+  decimals: number;
+  resolutionState: 'open' | 'resolved' | 'voided';
+  resolvedOutcome: number | null;
+  marketId: number;
+  createdAt: string | null;
+  expiresAt: string | null;
+  resolvedAt: string | null;
+  marketType: string;
+  marketSubtype: string | null;
+  metadata: Record<string, unknown>;
+  consensusMean: number;
+}
+
+export interface ConsensusSummary {
+  mean: number;
+  median: number;
+  mode: number;
+  variance: number;
+  stdDev: number;
+}
+
+export interface ConsensusCurve {
+  points: Array<{ x: number; y: number }>;
+  config: MarketConfig;
+}
+
+// ── Filter & Discovery Types ──
+
+export type FilterAction =
+  | 'equals'
+  | 'notEquals'
+  | 'greaterThan'
+  | 'greaterThanOrEqual'
+  | 'lessThan'
+  | 'lessThanOrEqual'
+  | 'contains'
+  | 'in'
+  | 'between';
+
+export interface MarketFilter {
+  field: string;
+  value: unknown;
+  action: FilterAction;
+}
+
+export interface MarketDiscoveryOptions {
+  state?: string;
+  titleContains?: string;
+  categories?: string[];
+  filters?: MarketFilter[];
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+  limit?: number;
+  signal?: AbortSignal;
+}
+
+// ── Position Types ──
+
+export interface Position {
+  positionId: string | number;
+  belief: number[];
+  collateral: number;
+  claims: number;
+  owner: string;
+  status: 'open' | 'sold' | 'settled' | 'closed';
+  prediction?: number | null;
+  stdDev?: number | null;
+  positionType?: string;
+  positionParams?: Record<string, unknown>;
+  createdAt: string;
+  closedAt: string | null;
+  soldPrice: number | null;
+  settlementPayout: number | null;
+}
+
+// ── Trade History Types ──
+
+export interface TradeEntry {
+  id: string;
+  timestamp: string;
+  side: 'buy' | 'sell';
+  prediction: number | null;
+  amount: number;
+  username: string;
+  positionId: string;
+}
+
+// ── Trading Types ──
+
+export interface BuyResult {
+  positionId: string | number;
+  belief: number[];
+  claims: number;
+  collateral: number;
+  positionType?: string;
+  positionParams?: Record<string, unknown>;
+}
+
+export interface SellResult {
+  positionId: string | number;
+  collateralReturned: number;
+  creditedTo?: string;
+}
+
+export interface PreviewSellResult {
+  collateralReturned: number;
+  positionId: string | number;
+}
+
+export interface PayoutCurve {
+  // API response uses "projections" -- remapped to "previews" in SDK types
+  previews: Array<{
+    outcome: number;
+    payout: number;
+    profitLoss: number;
+  }>;
+  maxPayout: number;
+  maxPayoutOutcome: number;
+  inputCollateral: number;
+}
+
+// ── Distribution Types ──
+
+export interface BucketData {
+  range: string;
+  min: number;
+  max: number;
+  probability: number;
+  percentage: number;
+}
+
+// ── Position Generator Types ──
+
+export type BeliefVector = number[];
+
+export interface GaussianParams {
+  center: number;
+  spread: number;
+  bounds?: [number, number];
+}
+
+export interface RangeParams {
+  low: number;
+  high: number;
+  bounds?: [number, number];
+}
+
+// ── History Types ──
+
+export interface MarketSnapshot {
+  snapshotId: number;
+  tradeId: number;
+  side: 'buy' | 'sell';
+  positionId: string;
+  alphaVector: number[];
+  totalDeposits: number;
+  totalWithdrawals: number;
+  totalVolume: number;
+  currentPool: number;
+  numOpenPositions: number;
+  createdAt: string;  // ISO 8601
+}
+
+export interface MarketHistory {
+  marketId: number;
+  totalSnapshots: number;
+  snapshots: MarketSnapshot[];
+}
+
+export interface PercentileSet {
+  p2_5: number;
+  p12_5: number;
+  p25: number;
+  p37_5: number;
+  p50: number;
+  p62_5: number;
+  p75: number;
+  p87_5: number;
+  p97_5: number;
+}
+
+export interface FanChartPoint {
+  timestamp: number;       // epoch ms
+  createdAt: string;
+  tradeId: number;
+  mean: number;
+  mode: number;
+  stdDev: number;
+  percentiles: PercentileSet;
+}
+
+// ── Auth Types ──
+
+/** Sentinel error code for password-protected accounts */
+export const PASSWORD_REQUIRED = 'PASSWORD_REQUIRED' as const;
+
+/** Result of passwordless login attempt */
+export interface PasswordlessLoginResult {
+  /** Whether this was a login (existing user) or signup (new user) */
+  action: 'login' | 'signup';
+  /** The authenticated user profile */
+  user: UserProfile;
+  /** JWT access token */
+  token: string;
+}
+
+export interface UserProfile {
+  userId: number;
+  username: string;
+  walletValue: number;
+  role: 'trader' | 'creator' | 'admin';
+}
+
+export interface AuthResult {
+  user: UserProfile;
+  token: string;
+}
+
+export interface SignupResult {
+  user: UserProfile;
+}
+
+export interface SignupOptions {
+  accessCode?: string;
+}
+
+// ── Client Types ──
+
+export interface FSConfig {
+  baseUrl: string;
+  username?: string;
+  password?: string;
+  autoAuthenticate?: boolean;
+}

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+*.tsbuildinfo
+.vite/
+/Docs/
+internal_sdk_docs/ui_images/
+.DS_Store
+.vscode/
+.claude/worktrees/
+.superpowers/
+
+# Docusaurus
+packages/docs/build/
+packages/docs/.docusaurus/
