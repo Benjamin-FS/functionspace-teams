@@ -18,7 +18,7 @@ export default async function MarketsPage() {
   return (
     <>
       <section className="banner">
-        <h1>The Oracles</h1>
+        <h1>Markets</h1>
         <div className="tag">
           Every prophecy hath its pool. Place thy wager upon the shape of the
           future, and bind the deed to a banner.

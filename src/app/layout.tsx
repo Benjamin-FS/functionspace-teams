@@ -45,7 +45,7 @@ export default async function RootLayout({
             </Link>
             <nav>
               <Link href="/teams">Guilds</Link>
-              <Link href="/markets">Oracles</Link>
+              <Link href="/markets">Markets</Link>
               {session.username ? (
                 <>
                   <span className="user-chip">{session.username}</span>
