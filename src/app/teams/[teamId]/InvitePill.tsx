@@ -16,9 +16,9 @@ export function InvitePill({ code }: { code: string }) {
       title="Click to copy"
       style={{ cursor: 'pointer', background: 'transparent', color: 'inherit', font: 'inherit' }}
     >
-      <span className="muted" style={{ fontSize: '0.7rem' }}>seal</span>
+      <span className="muted" style={{ fontSize: '0.7rem' }}>invite</span>
       <span className="invite">{code}</span>
-      <span className="muted" style={{ fontSize: '0.7rem' }}>{copied ? 'taken' : 'copy'}</span>
+      <span className="muted" style={{ fontSize: '0.7rem' }}>{copied ? 'copied' : 'copy'}</span>
     </button>
   );
 }

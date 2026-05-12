@@ -87,13 +87,13 @@ export default async function TeamPage({ params }: { params: { teamId: string } 
 
       <div className="row" style={{ marginTop: '1rem' }}>
         <div className="card" style={{ maxWidth: 320 }}>
-          <h2>The Fellowship</h2>
+          <h2>Members</h2>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {team.members.map((m) => (
               <li key={m.username} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.3rem 0', borderBottom: '1px solid rgba(201,161,61,0.08)' }}>
                 <span>{m.username}</span>
                 <span className="muted" style={{ fontSize: '0.78rem', fontFamily: 'var(--serif)', letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-                  {m.role === 'captain' ? 'Captain' : 'Sworn'}
+                  {m.role === 'captain' ? 'Captain' : 'Member'}
                 </span>
               </li>
             ))}
@@ -106,18 +106,18 @@ export default async function TeamPage({ params }: { params: { teamId: string } 
         </div>
 
         <div className="card">
-          <h2>Guild Coffer</h2>
+          <h2>Guild Stake</h2>
           <p className="stat-big" style={{ margin: 0 }}>
             <span className="coin" aria-hidden /> {totalTeamCollateral.toFixed(2)}
           </p>
           <p className="muted" style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>
-            Pledged across {team.tradeTags.length} wager{team.tradeTags.length === 1 ? '' : 's'} on{' '}
-            {marketIds.length} prophec{marketIds.length === 1 ? 'y' : 'ies'}.
+            Across {team.tradeTags.length} bet{team.tradeTags.length === 1 ? '' : 's'} on{' '}
+            {marketIds.length} market{marketIds.length === 1 ? '' : 's'}.
           </p>
         </div>
       </div>
 
-      <div className="sigil">Chronicle of Wagers</div>
+      <div className="sigil">Recent Activity</div>
       <ActivityFeed
         entries={team.tradeTags.slice(0, 25).map((t) => ({
           positionId: t.positionId,
@@ -131,11 +131,11 @@ export default async function TeamPage({ params }: { params: { teamId: string } 
         }))}
       />
 
-      <div className="sigil">Prophecies in Play</div>
+      <div className="sigil">Markets in Play</div>
       {marketIds.length === 0 ? (
         <p className="muted">
-          No wagers yet drawn. <Link href="/markets">Consult the oracles</Link> and
-          mark a wager with this banner.
+          No bets yet. <Link href="/markets">Browse markets</Link> and tag a bet
+          to this guild.
         </p>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -144,7 +144,7 @@ export default async function TeamPage({ params }: { params: { teamId: string } 
               return (
                 <div className="card" key={entry.marketId}>
                   <p className="error">
-                    The oracle of prophecy {entry.marketId} is silent: {entry.error}
+                    Could not load market {entry.marketId}: {entry.error}
                   </p>
                 </div>
               );
@@ -157,9 +157,9 @@ export default async function TeamPage({ params }: { params: { teamId: string } 
               return (
                 <div className="card" key={entry.marketId}>
                   <p className="muted">
-                    Prophecy {entry.marketId}
+                    Market {entry.marketId}
                     {entry.market?.title ? ` (${entry.market.title})` : ''}: the
-                    guild's tagged wagers are no longer active on this market.
+                    guild's tagged bets are no longer active on this market.
                   </p>
                 </div>
               );

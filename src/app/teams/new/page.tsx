@@ -8,10 +8,10 @@ export default async function NewTeamPage() {
   return (
     <>
       <section className="banner">
-        <h1>Found a Guild</h1>
+        <h1>Create a Guild</h1>
         <div className="tag">
-          Choose a name. Pen a motto. Thy seal of summoning shall be drawn at
-          once.
+          Pick a name, sigil, and motto. An invite code is generated
+          automatically.
         </div>
       </section>
       <div style={{ display: 'flex', justifyContent: 'center' }}>

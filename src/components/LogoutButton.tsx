@@ -18,7 +18,7 @@ export function LogoutButton() {
         router.push('/');
       }}
     >
-      Depart
+      Sign out
     </button>
   );
 }

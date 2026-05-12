@@ -37,17 +37,17 @@ export function TeamMarketCard({
           </h2>
           <p className="muted" style={{ margin: 0, fontSize: '0.85rem' }}>
             pool <span className="coin" aria-hidden />{market.poolBalance.toFixed(2)} · {market.positionsOpen} open ·{' '}
-            augury {fmt(market.consensusMean)} {market.xAxisUnits}
+            mean {fmt(market.consensusMean)} {market.xAxisUnits}
           </p>
         </div>
         <div className="muted" style={{ fontSize: '0.85rem' }}>
-          guild pledge <span className="coin" aria-hidden />{aggregate.totalCollateral.toFixed(2)}
+          guild stake <span className="coin" aria-hidden />{aggregate.totalCollateral.toFixed(2)}
         </div>
       </header>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem', marginTop: '1rem' }}>
         <div>
-          <h3 style={{ marginBottom: '0.25rem' }}>The Augury · Market vs Guild</h3>
+          <h3 style={{ marginBottom: '0.25rem' }}>Belief · Market vs Guild</h3>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={beliefData} margin={{ top: 8, right: 16, bottom: 8, left: 0 }}>
               <CartesianGrid stroke="rgba(201,161,61,0.12)" strokeDasharray="3 3" />
@@ -69,14 +69,14 @@ export function TeamMarketCard({
                 labelFormatter={(v: number) => `${fmt(v)} ${market.xAxisUnits ?? ''}`}
               />
               <Legend wrapperStyle={{ fontSize: '0.8rem' }} />
-              <Line yAxisId="realm" type="monotone" dataKey="market" name="Realm (left axis)" stroke="#5a8fc2" dot={false} strokeWidth={2} />
+              <Line yAxisId="realm" type="monotone" dataKey="market" name="Market (left axis)" stroke="#5a8fc2" dot={false} strokeWidth={2} />
               <Line yAxisId="guild" type="monotone" dataKey="team" name="Guild (right axis)" stroke="#f1d472" dot={false} strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
         <div>
-          <h3 style={{ marginBottom: '0.25rem' }}>Spoils Foretold by Outcome</h3>
+          <h3 style={{ marginBottom: '0.25rem' }}>Projected Payoff by Outcome</h3>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={payoff} margin={{ top: 8, right: 16, bottom: 8, left: 0 }}>
               <CartesianGrid stroke="rgba(201,161,61,0.12)" strokeDasharray="3 3" />
@@ -89,27 +89,27 @@ export function TeamMarketCard({
               <YAxis stroke="#8b7b5a" tick={{ fontSize: 11 }} tickFormatter={(v) => `${v.toFixed(0)}`} />
               <Tooltip
                 contentStyle={{ background: '#14100a', border: '1px solid #7c5f1e', color: '#e6d6ad' }}
-                formatter={(v: number) => [`${v.toFixed(2)}`, 'guild spoils']}
+                formatter={(v: number) => [`${v.toFixed(2)}`, 'guild payoff']}
                 labelFormatter={(v: number) => `${fmt(v)} ${market.xAxisUnits ?? ''}`}
               />
               <Line type="monotone" dataKey="payoff" stroke="#c83232" dot={false} strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
           <p className="muted" style={{ fontSize: '0.8rem', marginTop: '0.25rem', fontStyle: 'italic' }}>
-            The sum of each member's spoils at the chosen outcome, drawn against
-            the present pool.
+            Sum of each member's projected payoff at that outcome, against the
+            current pool.
           </p>
         </div>
       </div>
 
-      <h3 style={{ marginTop: '1.25rem', marginBottom: '0.4rem' }}>Pledges of the Fellowship</h3>
+      <h3 style={{ marginTop: '1.25rem', marginBottom: '0.4rem' }}>Member Contributions</h3>
       <table className="simple">
         <thead>
           <tr>
             <th>member</th>
-            <th>pledge</th>
+            <th>stake</th>
             <th>share</th>
-            <th>seal</th>
+            <th>position id</th>
           </tr>
         </thead>
         <tbody>

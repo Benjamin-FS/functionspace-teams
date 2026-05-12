@@ -1,7 +1,7 @@
 export function timeAgo(date: Date | string): string {
   const d = typeof date === 'string' ? new Date(date) : date;
   const seconds = Math.max(0, (Date.now() - d.getTime()) / 1000);
-  if (seconds < 45) return 'moments ago';
+  if (seconds < 45) return 'just now';
   const minutes = seconds / 60;
   if (minutes < 1.5) return 'a minute ago';
   if (minutes < 60) return `${Math.round(minutes)} min ago`;

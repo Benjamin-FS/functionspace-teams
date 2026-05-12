@@ -22,7 +22,7 @@ const imFell = IM_Fell_English({
 });
 
 export const metadata: Metadata = {
-  title: 'Guild of Predictors',
+  title: 'functionSPACE Guilds',
   description: 'Form guilds and aggregate prediction-market positions',
 };
 
@@ -41,7 +41,7 @@ export default async function RootLayout({
         >
           <header className="site-header">
             <Link href="/" className="logo">
-              Guild <span className="swash">of</span> Predictors
+              functionSPACE <span className="swash">Guilds</span>
             </Link>
             <nav>
               <Link href="/teams">Guilds</Link>
@@ -52,7 +52,7 @@ export default async function RootLayout({
                   <LogoutButton />
                 </>
               ) : (
-                <Link href="/login">Enter</Link>
+                <Link href="/login">Sign in</Link>
               )}
             </nav>
           </header>

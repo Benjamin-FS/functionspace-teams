@@ -15,8 +15,7 @@ export function ActivityFeed({ entries }: { entries: FeedEntry[] }) {
   if (entries.length === 0) {
     return (
       <p className="muted">
-        No wager yet drawn under this banner. The chronicle awaits its first
-        line.
+        No bets yet. Place one and it'll show up here.
       </p>
     );
   }
@@ -33,11 +32,11 @@ export function ActivityFeed({ entries }: { entries: FeedEntry[] }) {
           <div style={{ flex: 1, minWidth: 0 }}>
             <div>
               <span className="who">{e.username}</span>{' '}
-              <span className="muted">pledged</span>{' '}
+              <span className="muted">bet</span>{' '}
               <span className="coin" aria-hidden /> {e.collateral.toFixed(2)}{' '}
-              <span className="muted">to</span>{' '}
+              <span className="muted">on</span>{' '}
               <Link href={`/markets/${e.marketId}`}>
-                {e.marketTitle ?? `Prophecy ${e.marketId}`}
+                {e.marketTitle ?? `Market ${e.marketId}`}
               </Link>
             </div>
             {e.rationale && (

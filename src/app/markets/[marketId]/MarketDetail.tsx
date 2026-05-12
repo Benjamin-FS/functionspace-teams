@@ -34,14 +34,14 @@ export function MarketDetail({
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setTagResult(`The seal would not take: ${data.error ?? res.statusText}`);
+        setTagResult(`Tag failed: ${data.error ?? res.statusText}`);
         return;
       }
       const team = myTeams.find((t) => t.id === selectedTeamId);
-      setTagResult(`Wager pledged to ${team?.name ?? 'the guild'}.`);
+      setTagResult(`Bet tagged to ${team?.name ?? 'the guild'}.`);
       setRationale('');
     } catch (err) {
-      setTagResult(`The seal would not take: ${err instanceof Error ? err.message : String(err)}`);
+      setTagResult(`Tag failed: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
 
@@ -56,24 +56,23 @@ export function MarketDetail({
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {username ? (
             <div className="card">
-              <h2 style={{ marginBottom: '0.5rem' }}>Bear a Banner</h2>
+              <h2 style={{ marginBottom: '0.5rem' }}>Bet for a Guild</h2>
               <p className="muted" style={{ fontSize: '0.85rem', marginTop: 0 }}>
-                Mark the next wager with a guild. Unmarked wagers stand to thy
-                name alone.
+                Tag your next bet to a guild. Untagged bets count for you alone.
               </p>
               <select
                 value={selectedTeamId}
                 onChange={(e) => setSelectedTeamId(e.target.value)}
                 className="team-picker"
               >
-                <option value="none">— mine own banner —</option>
+                <option value="none">— just me —</option>
                 {myTeams.map((t) => (
                   <option key={t.id} value={t.id}>{t.name}</option>
                 ))}
               </select>
               {myTeams.length === 0 && (
                 <p className="muted" style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>
-                  Thou hast sworn to no guild yet.
+                  You haven't joined a guild yet.
                 </p>
               )}
               {showRationale && (
@@ -87,13 +86,13 @@ export function MarketDetail({
                     color: 'var(--gold)',
                     marginBottom: '0.3rem',
                   }}>
-                    Thy Reasoning <span className="muted" style={{ letterSpacing: 'normal', textTransform: 'none', fontFamily: 'var(--body)', fontSize: '0.8rem' }}>(optional, will be sealed onto this wager)</span>
+                    Your Reasoning <span className="muted" style={{ letterSpacing: 'normal', textTransform: 'none', fontFamily: 'var(--body)', fontSize: '0.8rem' }}>(optional, saved with this bet)</span>
                   </label>
                   <textarea
                     value={rationale}
                     onChange={(e) => setRationale(e.target.value.slice(0, 240))}
                     rows={2}
-                    placeholder="The iphone numbers leaked. Trust me."
+                    placeholder="Why this bet? (e.g. the iPhone numbers leaked)"
                     style={{
                       width: '100%',
                       padding: '0.55rem 0.7rem',
@@ -118,7 +117,7 @@ export function MarketDetail({
             </div>
           ) : (
             <div className="card">
-              <p className="muted">Enter the realm to wager.</p>
+              <p className="muted">Sign in to place a bet.</p>
             </div>
           )}
           <TradePanel marketId={marketId} modes={['gaussian', 'range']} onBuy={onBuy} />

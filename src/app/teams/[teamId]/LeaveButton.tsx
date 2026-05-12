@@ -9,13 +9,13 @@ export function LeaveButton({ teamId }: { teamId: string }) {
       type="button"
       className="link-button muted"
       onClick={async () => {
-        if (!confirm('Break thy oath and depart this guild?')) return;
+        if (!confirm('Leave this guild?')) return;
         await fetch(`/api/teams/${teamId}/leave`, { method: 'POST' });
         router.refresh();
         router.push('/teams');
       }}
     >
-      Forsake the oath
+      Leave guild
     </button>
   );
 }

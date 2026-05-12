@@ -20,20 +20,20 @@ export default async function MarketsPage() {
       <section className="banner">
         <h1>Markets</h1>
         <div className="tag">
-          Every prophecy hath its pool. Place thy wager upon the shape of the
-          future, and bind the deed to a banner.
+          Each market has a pool. Place a bet on the shape of the outcome, and
+          tag it to a guild.
         </div>
       </section>
       {error && (
         <div className="card">
-          <p className="error">The oracles are silent: {error}</p>
+          <p className="error">Could not load markets: {error}</p>
         </div>
       )}
-      {!error && markets.length === 0 && <p className="muted">No prophecy yet inscribed.</p>}
+      {!error && markets.length === 0 && <p className="muted">No markets yet.</p>}
       <div className="cards" style={{ marginTop: '1rem' }}>
         {markets.map((m: any) => (
           <Link key={m.marketId} href={`/markets/${m.marketId}`} className="card">
-            <h2 style={{ marginBottom: '0.25rem' }}>{m.title ?? `Prophecy ${m.marketId}`}</h2>
+            <h2 style={{ marginBottom: '0.25rem' }}>{m.title ?? `Market ${m.marketId}`}</h2>
             <p className="muted" style={{ margin: 0, fontSize: '0.85rem' }}>
               {m.resolutionState === 'open' ? 'open' : m.resolutionState ?? 'unknown'}
               {typeof m.poolBalance === 'number' && (
@@ -43,7 +43,7 @@ export default async function MarketsPage() {
                   {m.poolBalance.toFixed(2)}
                 </>
               )}
-              {typeof m.participantCount === 'number' && ` · ${m.participantCount} seers`}
+              {typeof m.participantCount === 'number' && ` · ${m.participantCount} trader${m.participantCount === 1 ? '' : 's'}`}
             </p>
           </Link>
         ))}

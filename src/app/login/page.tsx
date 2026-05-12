@@ -8,10 +8,10 @@ export default async function LoginPage() {
   return (
     <>
       <section className="banner">
-        <h1>Enter the Realm</h1>
+        <h1>Sign in</h1>
         <div className="tag">
-          Speak thy name, traveller. If it is new to these halls, the scribes
-          shall enrol thee upon the rolls without ceremony.
+          Use your functionSPACE username. First-time users are signed up
+          automatically.
         </div>
       </section>
       <div style={{ display: 'flex', justifyContent: 'center' }}>

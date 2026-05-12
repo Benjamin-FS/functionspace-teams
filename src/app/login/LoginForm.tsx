@@ -45,10 +45,10 @@ export function LoginForm() {
       </label>
       {error && <div className="error">{error}</div>}
       <button type="submit" disabled={busy}>
-        {busy ? 'Opening the gate…' : 'Enter'}
+        {busy ? 'Signing in…' : 'Sign in'}
       </button>
       <p className="muted" style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>
-        New name? Thou shalt be inscribed forthwith.
+        New username? An account will be created automatically.
       </p>
     </form>
   );

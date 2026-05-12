@@ -26,8 +26,8 @@ export default async function TeamsPage() {
       <section className="banner">
         <h1>The Guildhall</h1>
         <div className="tag">
-          Every banner records its members, its stake, and the prophecies it
-          chases. Found one of thine own, or pledge thy name to another.
+          Every guild tracks its members, its stake, and the markets it bets on.
+          Start your own, or join one with an invite code.
         </div>
       </section>
 
@@ -35,19 +35,19 @@ export default async function TeamsPage() {
         {session.username ? (
           <>
             <div className="card">
-              <h2>Raise a Banner</h2>
+              <h2>Start a Guild</h2>
               <p className="muted">
-                Found a new guild, claim a seal of summoning, and bid thy fellows
-                join.
+                Create a new guild, get an invite code, and share it with your
+                friends.
               </p>
               <p style={{ marginTop: '0.75rem' }}>
-                <Link href="/teams/new">→ Found a guild</Link>
+                <Link href="/teams/new">→ Create a guild</Link>
               </p>
             </div>
             <div className="card">
-              <h2>Answer a Summons</h2>
+              <h2>Join with an Invite Code</h2>
               <p className="muted">
-                Hast thou a seal of summoning from a captain? Speak it here.
+                Got a code from a guild captain? Enter it here.
               </p>
               <JoinByCode />
             </div>
@@ -55,16 +55,15 @@ export default async function TeamsPage() {
         ) : (
           <div className="card">
             <p className="muted">
-              <Link href="/login">Enter the realm</Link> to raise a banner or
-              answer a summons.
+              <Link href="/login">Sign in</Link> to start or join a guild.
             </p>
           </div>
         )}
       </div>
 
-      <div className="sigil">Banners of the Realm</div>
+      <div className="sigil">All Guilds</div>
       {teams.length === 0 ? (
-        <p className="muted">No guild yet flies a banner.</p>
+        <p className="muted">No guilds yet.</p>
       ) : (
         <div className="cards">
           {teams.map((t) => (
@@ -85,8 +84,8 @@ export default async function TeamsPage() {
               </div>
               <p className="muted" style={{ fontSize: '0.85rem', marginTop: '0.6rem' }}>
                 {t._count.members} member{t._count.members === 1 ? '' : 's'} ·{' '}
-                {t._count.tradeTags} wager{t._count.tradeTags === 1 ? '' : 's'}
-                {myMemberships.has(t.id) && ' · sworn'}
+                {t._count.tradeTags} bet{t._count.tradeTags === 1 ? '' : 's'}
+                {myMemberships.has(t.id) && ' · joined'}
               </p>
             </Link>
           ))}

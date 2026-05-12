@@ -34,20 +34,21 @@ export default async function HomePage() {
   return (
     <>
       <section className="banner">
-        <h1>Guilds of the Probable</h1>
+        <h1>Guilds</h1>
         <div className="tag">
-          Band together. Wager upon what is to come. Let the bold shape the
-          consensus of the realm.
+          Band together. Bet on what's to come. Let the bold shape the market's
+          view.
         </div>
       </section>
 
       {session.username ? (
         <section style={{ marginBottom: '2rem' }}>
-          <div className="sigil">Thy Guilds</div>
+          <div className="sigil">Your Guilds</div>
           {myTeams.length === 0 ? (
             <p className="muted">
-              Thou hast joined no guild. <Link href="/teams/new">Found one</Link> or{' '}
-              <Link href="/teams">seek out a charter</Link>.
+              You haven't joined a guild yet.{' '}
+              <Link href="/teams/new">Create one</Link> or{' '}
+              <Link href="/teams">browse guilds</Link>.
             </p>
           ) : (
             <div className="cards">
@@ -61,7 +62,7 @@ export default async function HomePage() {
                         {t.tag && <span className="guild-tag">{t.tag}</span>}
                       </h2>
                       <p className="muted" style={{ fontSize: '0.85rem', margin: 0 }}>
-                        {t._count.members} member{t._count.members === 1 ? '' : 's'} · {t._count.tradeTags} wager{t._count.tradeTags === 1 ? '' : 's'}
+                        {t._count.members} member{t._count.members === 1 ? '' : 's'} · {t._count.tradeTags} bet{t._count.tradeTags === 1 ? '' : 's'}
                       </p>
                     </div>
                   </div>
@@ -73,16 +74,16 @@ export default async function HomePage() {
       ) : (
         <section style={{ marginBottom: '2rem' }} className="card">
           <p>
-            <Link href="/login">Enter the realm</Link> with thy functionSPACE name to
-            begin. New names are inscribed upon the rolls automatically.
+            <Link href="/login">Sign in</Link> with your functionSPACE username
+            to start. New usernames are signed up automatically.
           </p>
         </section>
       )}
 
       <section>
-        <div className="sigil">Hall of Heroes</div>
+        <div className="sigil">Leaderboard</div>
         {leaderboard.length === 0 ? (
-          <p className="muted">No wagers yet drawn on any banner.</p>
+          <p className="muted">No guild-tagged bets yet.</p>
         ) : (
           <table className="simple">
             <thead>
@@ -112,9 +113,8 @@ export default async function HomePage() {
           </table>
         )}
         <p className="muted" style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
-          Ranked by total coin pledged across every guild-marked wager. When the
-          on-chain treasuries arrive, this scroll shall record realised glory
-          rather than mere stake.
+          Ranked by total stake across every guild-tagged bet. Once on-chain
+          settlement arrives, this will switch to realised + unrealised P&amp;L.
         </p>
       </section>
     </>

@@ -35,7 +35,7 @@ export function NewTeamForm() {
   return (
     <form className="form" onSubmit={onSubmit} style={{ maxWidth: 480 }}>
       <label>
-        Banner Name
+        Guild Name
         <input
           type="text"
           value={name}
@@ -82,13 +82,13 @@ export function NewTeamForm() {
           rows={3}
           value={blurb}
           onChange={(e) => setBlurb(e.target.value)}
-          placeholder="By stake and prophecy united."
+          placeholder="A short tagline for your guild."
         />
       </label>
 
       {error && <div className="error">{error}</div>}
       <button type="submit" disabled={busy}>
-        {busy ? 'Raising the banner…' : 'Raise the banner'}
+        {busy ? 'Creating…' : 'Create guild'}
       </button>
     </form>
   );

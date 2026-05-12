@@ -32,7 +32,7 @@ export function JoinByCode() {
     <form className="form" onSubmit={onSubmit}>
       <input
         type="text"
-        placeholder="seal of summoning"
+        placeholder="invite code"
         value={code}
         onChange={(e) => setCode(e.target.value.toUpperCase())}
         required
@@ -40,7 +40,7 @@ export function JoinByCode() {
       />
       {error && <div className="error">{error}</div>}
       <button type="submit" disabled={busy}>
-        {busy ? 'Sealing the oath…' : 'Swear in'}
+        {busy ? 'Joining…' : 'Join guild'}
       </button>
     </form>
   );
