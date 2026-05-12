@@ -1,11 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { FunctionSpaceContext } from '@functionspace/react';
 
 export function LogoutButton() {
-  const router = useRouter();
   const ctx = useContext(FunctionSpaceContext);
   return (
     <button
@@ -14,8 +12,8 @@ export function LogoutButton() {
       onClick={async () => {
         await fetch('/api/auth/logout', { method: 'POST' });
         ctx?.logout();
-        router.refresh();
-        router.push('/');
+        // Hard navigation so the layout re-renders without the session cookie.
+        window.location.href = '/';
       }}
     >
       Sign out

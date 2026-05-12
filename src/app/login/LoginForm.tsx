@@ -1,10 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
-  const router = useRouter();
   const [username, setUsername] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -24,8 +22,10 @@ export function LoginForm() {
       setBusy(false);
       return;
     }
-    router.refresh();
-    router.push('/');
+    // Hard navigation forces the layout (and its session-aware header) to
+    // re-render against the cookie we just set. `router.push + refresh` is
+    // racy across auth state changes on Next 14 App Router.
+    window.location.href = '/';
   }
 
   return (
