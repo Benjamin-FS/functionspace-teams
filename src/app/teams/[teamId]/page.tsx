@@ -82,7 +82,7 @@ export default async function TeamPage({ params }: { params: { teamId: string } 
             {team.blurb && <p className="muted" style={{ marginTop: '0.25rem', fontStyle: 'italic' }}>“{team.blurb}”</p>}
           </div>
         </div>
-        <InvitePill code={team.inviteCode} />
+        {isMember && <InvitePill code={team.inviteCode} />}
       </header>
 
       <div className="row" style={{ marginTop: '1rem' }}>
